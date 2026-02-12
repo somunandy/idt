@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enquiry | IDT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#f4f6f8;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===== HEADER ===== */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:80px;
+  background:#0b1530;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 40px;
+  z-index:2000;
+}
+
+.logo img{
+  height:60px;
+}
+
+/* ===== HAMBURGER ===== */
+.menu-toggle{
+  width:30px;
+  cursor:pointer;
+  padding: 5px; /* Click area spacing */
+}
+
+.menu-toggle span{
+  display:block;
+  height:3px;
+  background:#fff;
+  margin:6px 0;
+  border-radius:3px;
+}
+
+/* ===== MENU ===== */
+nav{
+  position:fixed;
+  top:80px;
+  right:0;
+  background:#0b1530;
+  width:220px;
+  display:none;
+  z-index: 2001;
+}
+
+nav.active{
+  display:block;
+}
+
+nav ul{
+  list-style:none;
+}
+
+nav ul li{
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+nav ul li a{
+  display:block;
+  padding:15px 20px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+}
+
+nav ul li a:hover{
+  background:#f0c040;
+  color:#000;
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title{
+  text-align:center;
+  margin:130px 0 10px;
+  font-size:34px;
+  color:#0b1c2d;
+}
+
+.page-subtitle{
+  text-align:center;
+  color:#555;
+  margin-bottom:40px;
+}
+
+/* ===== ENQUIRY SECTION ===== */
+.enquiry-box{
+  max-width:1100px;
+  margin:auto;
+  background:#ffffff;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  padding:25px;
+}
+
+.enquiry-box iframe{
+  width:100%;
+  height:900px;
+  border:none;
+  border-radius:12px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:#0b1c2d;
+  color:#fff;
+  text-align:center;
+  padding:15px;
+  margin-top:auto;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <a href="index.html">
+      <img src="logo.png" alt="IDT Logo">
+    </a>
+  </div>
+
+  <div class="menu-toggle" id="menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<nav id="menu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="branches.html">Branches</a></li>
+    <li><a href="faculty.html">Faculty</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="enquiry.html">Enquiry</a></li>
+  </ul>
+</nav>
+
+<h2 class="page-title">Enquiry Form</h2>
+<p class="page-subtitle">The Institute of Digital Technomedia</p>
+
+<div class="enquiry-box">
+  <iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLSehN8Qbz0G28anVczCAwT3DlPOSnxcBlQh4Z3QqVvedWfpV_w/viewform?usp=header">
+  </iframe>
+</div>
+
+<footer>
+  <p>📞 8759729122 / 9830789372</p>
+  <p>✉️ idt.samad@gmail.com</p>
+© 2026 Institute of Digital Technology
+</footer>
+
+<script>
+const menu = document.getElementById("menu");
+const toggleBtn = document.getElementById("menu-btn");
+
+// ১. শুধুমাত্র মেনু বাটনে মাউস নিলে মেনু খুলবে
+toggleBtn.addEventListener("mouseenter", () => {
+  menu.classList.add("active");
+});
+
+// ২. মেনু বাটনে ক্লিক করলে টগল (খোলা/বন্ধ) হবে
+toggleBtn.addEventListener("click", (e) => {
+  e.stopPropagation(); // ক্লিক যেন হেডারে না ছড়ায়
+  menu.classList.toggle("active");
+});
+
+// ৩. মাউস যদি মেনু থেকে সরে যায় তবে বন্ধ হবে
+menu.addEventListener("mouseleave", () => {
+  menu.classList.remove("active");
+});
+
+// ৪. বাইরে কোথাও ক্লিক করলে মেনু বন্ধ হবে
+document.addEventListener("click", (e) => {
+  if (!menu.contains(e.target) && !toggleBtn.contains(e.target)) {
+    menu.classList.remove("active");
+  }
+});
+
+// ৫. মেনুর ভেতরের লিঙ্কে ক্লিক করলে মেনু বন্ধ হবে
+menu.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    menu.classList.remove("active");
+  });
+});
+
+// এক্সট্রা: মাউস যদি বাটন থেকে সরে নিচের দিকে না গিয়ে অন্য কোথাও যায়
+toggleBtn.addEventListener("mouseleave", (e) => {
+  setTimeout(() => {
+    if (!menu.matches(':hover')) {
+      menu.classList.remove("active");
+    }
+  }, 100);
+});
+</script>
+
+</body>
+</html>
